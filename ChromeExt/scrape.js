@@ -10,7 +10,7 @@ function getToken()
 
         imgs = $('img');
 	for (i = 0; i < imgs.length; i++) {
-	//console.log(imgs[i].src);
+	// console.log(imgs[i].src);
 	getImageTagsFromURL(imgs[i].src);
 }
     });
@@ -20,9 +20,11 @@ function getImageTagsFromURL(image_url)
 {
 	if (image_url == null || image_url == "") { return; }
 	var pic_formats = ["jpg", "jpeg", "png", "gif", "bmp", "tiff"];
+	var count;
 	for (var i in pic_formats) {
-		if (!image_url.endsWith(pic_formats[i])) return; 
+		if (endsWith(image_url, pic_formats[i])) count++;
 	}
+	if (count == 0) return;
 	$.ajax({
 		url: 'https://api.clarifai.com/v1/tag/',
 		type: 'POST',
@@ -34,4 +36,8 @@ function getImageTagsFromURL(image_url)
 		error: function (err) { console.log("Couldn't get image tags! " + image_url)},
 		});
 
+}
+
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
