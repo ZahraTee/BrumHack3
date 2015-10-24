@@ -33,12 +33,11 @@ function getImageTagsFromURL(image_element,image_url)
 				
 					var keywords = object.results[i].result.tag.classes;
 					var alttext = ""
-					for (j = 0; j < keywords.length; j++)
-					{
+					for (j = 0; j < keywords.length; j++) {
 						alttext = alttext + " " + keywords[j];
 					}
-					$(imgs[i]).attr("alt", "Clarifai Image:" + alttext);
-					console.log($(imgs[i]).attr("alt"));
+					$(image_element).attr("alt", "Clarifai Image:" + alttext);
+					console.log($(image_element).attr("src") + " " + $(image_element).attr("alt"));
 				}
 			},
 		error: function (err) { return "Unreadable image."},
