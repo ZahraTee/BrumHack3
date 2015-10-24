@@ -19,6 +19,10 @@ function getToken()
 function getImageTagsFromURL(image_url)
 {
 	if (image_url == null || image_url == "") { return; }
+	var pic_formats = ["jpg", "jpeg", "png", "gif", "bmp", "tiff"];
+	for (var i in pic_formats) {
+		if (!image_url.endsWith(pic_formats[i])) return; 
+	}
 	$.ajax({
 		url: 'https://api.clarifai.com/v1/tag/',
 		type: 'POST',
