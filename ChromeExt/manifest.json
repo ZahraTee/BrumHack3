@@ -12,7 +12,7 @@
   "content_scripts": [
     {
       "matches": ["http://*/*"],
-      "js": ["jquery.min.js", "scrape.js"],
+      "js": ["scrape.js", "jquery.min.js"],
       "css": ["overlay.css"]
     }
   ],

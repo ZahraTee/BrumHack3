@@ -20,6 +20,27 @@ $('tag-helper-mode').on("click", function(){
 	});
 })
 
+var topic_list = [];
+var send_topic = function(){
+  var blocked = $('#block_topic').val();
+  console.log(blocked);
+  topic_list.push(blocked);
+  console.log(topic_list);
+  document.body.appendChild(document.createTextNode(blocked + " "));
+  var elem = document.getElementById("block_topic");
+  elem.value = "";
+};
+
+chrome.runtime.sendMessage({greeting: topic_list}, function(response) {
+  console.log(response.farewell);
+});
+
+chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
+    console.log(response.farewell);
+  });
+});
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     console.log(sender.tab ?
