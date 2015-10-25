@@ -1,0 +1,35 @@
+<link rel="stylesheet" type="text/css" href="popup.css">
+
+<div class="title"><b>Unsee<b></div>
+<br>
+
+<form>
+<div id="title">Which topics would you like to block? </div><br>
+
+<input id="block_topic" type="text">
+
+<button type="button" id="submit_to_list" onclick="send_topic()">Add to List</button>
+<br>
+<br>
+<br>
+
+<div id="topics">Topics:</div>
+<script src="jquery.min.js"></script>
+
+<script>
+
+  var topic_list = [];
+  var send_topic = function(){
+    var blocked = $('#block_topic').val();
+    console.log(blocked);
+    topic_list.push(blocked);
+    console.log(topic_list);
+    document.body.appendChild(document.createTextNode(blocked + " "));
+    var elem = document.getElementById("block_topic");
+    elem.value = "";
+  };
+
+  chrome.runtime.sendMessage({greeting: topic_list}, function(response) {
+    console.log(response.farewell);
+  });
+</script>
