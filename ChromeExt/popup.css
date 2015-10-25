@@ -1,0 +1,18 @@
+body{
+	min-width:300px;
+	font-family: 'Raleway', sans-serif;
+	text-align: center;
+	background-color:#333333;
+	color: white;
+}
+
+ul{
+	list-style: none;
+}
+.btn{
+	background-color:#00DBFF;
+	border-radius: 10px;
+	padding:10px;
+	margin: 5px;
+	display:inline-block;
+}
