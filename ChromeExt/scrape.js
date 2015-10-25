@@ -25,28 +25,63 @@ function getImageTagsFromURL(image_element,image_url)
 		url: 'https://api.clarifai.com/v1/tag/',
 		type: 'POST',
 		beforeSend: function (xhr) {
-		    xhr.setRequestHeader('Authorization', 'bearer ' + "3g69QuTW94KoJnWHEkzNmqtvmKMYOQ");
+		    xhr.setRequestHeader('Authorization', 'bearer ' + "kEIZsCcn6Uh1ouFACPka8HPXbKRIqY");
 		},
 		data: {url: image_url},
 		success: function (object) {
 			for (i = 0; i < object.results.length; i++) { 
-				
-					var keywords = object.results[i].result.tag.classes;
-					var alttext = ""
-					for (j = 0; j < keywords.length; j++) {
-						alttext = alttext + " " + keywords[j];
-					}
-					$(image_element).attr("alt", "Clarifai Image:" + alttext);
-					$(image_element).after('<div class="overlay">Hello</div>');
-					$("img").each(function(index) {
-		$(this).next(".overlay").andSelf().wrapAll("<div class='ce-container' />")
-	});
-					//$(image_element).wrap('<div class="ce-container"></div>');
-
+				var docid = object.results[i].docid;
+				var keywords = object.results[i].result.tag.classes;
+				var alttext = ""
+				for (j = 0; j < keywords.length; j++) {
+					alttext = alttext + " " + keywords[j];
 				}
-			},
+				$(image_element).attr("alt", "Clarifai Image:" + alttext);
+				$(image_element).after('<div class="overlay">' + createWordButtons(docid, keywords) + '</div>');
+				wordbuttons = $(".word-btn-"+docid );
+				console.log(wordbuttons);
+				console.log(wordbuttons.length);
+				for (k=0; k < wordbuttons.length; k++) {
+					wordbuttons[k].addEventListener("click", function() {
+						tag = $(this).parent().text().substring(1);
+						console.log(docid + " " + tag);
+						removeTags(docid, tag);
+						$(this).parent().remove();
+					});
+				}
+				$(image_element).each(function(index) {
+					$(this).next(".overlay").andSelf().wrapAll("<div class='ce-container'/>")
+				});
+			}
+		},
 		error: function (err) { return "Unreadable image."},
-		});
+	});
+}
+
+function removeTags(docid, tag)
+{
+	$.ajax({
+		url: 'https://api.clarifai.com/v1/feedback/',
+		type: 'POST',
+		beforeSend: function (xhr) {
+		    xhr.setRequestHeader('Authorization', 'bearer ' + "kEIZsCcn6Uh1ouFACPka8HPXbKRIqY");
+		},
+		data: {docids: docid, remove_tags: tag},
+		success: function (object) {
+			console.log(tag);
+		},
+		error: function (err) { return "Could not remove tag."},
+	});
+}
+
+function createWordButtons(docid, word_list)
+{
+	button_html = '<ul class="word-button-list">'
+	for (i=0; i < word_list.length; i++) {
+		button_html += '<li class="word-button"><button class="word-btn-' + docid + '">x</button>' + word_list[i] + '</li>'
+	}
+	button_html += '</ul>'
+	return button_html;
 }
 
 function endsWith(str, suffix) {

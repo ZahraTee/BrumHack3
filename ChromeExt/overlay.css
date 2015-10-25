@@ -11,9 +11,26 @@
     height: 100%;
     display: none;
     color: #FFF;
+    font-family: "Raleway", sans-serif;
+    font-weight:600;
 }
 
 .ce-container:hover .overlay {
     display: block;
     background: rgba(0, 0, 0, .6);
+}
+
+.word-button {
+	background-color: #00DBFF;
+	border-radius: 10px;
+	display: inline-block;
+	padding: 10px;
+	margin: 2px;
+}
+
+.word-button button{
+	border:none;
+	background: none;
+	color:white;
+	padding-right: 5px;
 }
