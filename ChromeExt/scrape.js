@@ -1,11 +1,33 @@
 var i, imgs, token;
 
+alt_tag_mode = true;
+tag_helper_mode = true;
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log(sender.tab ?
+                "from a content script:" + sender.tab.url :
+                "from the extension");
+    if (request.alt_tag_mode){
+      alt_tag_mode = true;
+  	}
+  	else{
+  		alt_tag_mode = false;
+  	}
+  	if (request.tag_helper_mode){
+      tag_helper_mode = true;
+  	}
+  	else{
+  		tag_helper_mode = false;
+  	}
+
+ });
+
 getToken();
 
 function getToken()
 {
 	$.post("https://api.clarifai.com/v1/token/", {grant_type: "client_credentials", client_id: "0tibu3hLLX0yM_B1IZj_wfIyweqsjhn6w5XRS41O", client_secret: "uS8pDSrBUiR3ZucHLcIrDcU0MMYObopodjU0zmkD"}, function(result){
-        console.log(result);
         token = result;
         imgs = $('img');
 		for (i = 0; i < imgs.length; i++) {
@@ -37,8 +59,11 @@ function getImageTagsFromURL(image_element,image_url)
 				for (j = 0; j < keywords.length; j++) {
 					alttext = alttext + " " + keywords[j];
 				}
-				$(image_element).attr("alt", "Clarifai Image:" + alttext);
-				$(image_element).after('<div class="overlay">' + createWordButtons(docid, keywords) + '</div>');
+				if (alt_tag_mode){
+					$(image_element).attr("alt", "Clarifai Image:" + alttext);
+				}
+				if (tag_helper_mode){
+					$(image_element).after('<div class="overlay">' + createWordButtons(docid, keywords) + '</div>');
 				wordbuttons = $(".word-btn-"+docid );
 				for (k=0; k < wordbuttons.length; k++) {
 					wordbuttons[k].addEventListener("click", function() {
@@ -51,6 +76,8 @@ function getImageTagsFromURL(image_element,image_url)
 				$(image_element).each(function(index) {
 					$(this).next(".overlay").andSelf().wrapAll("<div class='ce-container'/>")
 				});
+				}
+				
 			}
 		},
 		error: function (err) { return "Unreadable image."},
