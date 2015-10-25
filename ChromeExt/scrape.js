@@ -1,8 +1,6 @@
 var i, imgs, token;
 
-//if (clarifeyes_enabled) {
-	getToken();
-//}
+getToken();
 
 function getToken()
 {
@@ -42,8 +40,6 @@ function getImageTagsFromURL(image_element,image_url)
 				$(image_element).attr("alt", "Clarifai Image:" + alttext);
 				$(image_element).after('<div class="overlay">' + createWordButtons(docid, keywords) + '</div>');
 				wordbuttons = $(".word-btn-"+docid );
-				console.log(wordbuttons);
-				console.log(wordbuttons.length);
 				for (k=0; k < wordbuttons.length; k++) {
 					wordbuttons[k].addEventListener("click", function() {
 						tag = $(this).parent().text().substring(1);

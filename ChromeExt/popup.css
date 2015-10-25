@@ -4,15 +4,23 @@ body{
 	text-align: center;
 	background-color:#333333;
 	color: white;
+	margin: 20px 0px;
 }
 
-ul{
-	list-style: none;
+h2{
+	vertical-align: baseline;
 }
+
 .btn{
-	background-color:#00DBFF;
+	background-color:#3399CC;
 	border-radius: 10px;
 	padding:10px;
 	margin: 5px;
 	display:inline-block;
+}
+
+label
+{
+	display: block;
+	font-weight: 400;
 }
