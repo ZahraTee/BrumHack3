@@ -37,7 +37,12 @@ function getImageTagsFromURL(image_element,image_url)
 						alttext = alttext + " " + keywords[j];
 					}
 					$(image_element).attr("alt", "Clarifai Image:" + alttext);
-					console.log($(image_element).attr("src") + " " + $(image_element).attr("alt"));
+					$(image_element).after('<div class="overlay">Hello</div>');
+					$("img").each(function(index) {
+		$(this).next(".overlay").andSelf().wrapAll("<div class='ce-container' />")
+	});
+					//$(image_element).wrap('<div class="ce-container"></div>');
+
 				}
 			},
 		error: function (err) { return "Unreadable image."},

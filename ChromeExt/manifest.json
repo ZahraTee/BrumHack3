@@ -12,7 +12,8 @@
   "content_scripts": [
     {
       "matches": ["http://*/*"],
-      "js": ["jquery.min.js", "scrape.js"]
+      "js": ["jquery.min.js", "scrape.js"],
+      "css": ["overlay.css"]
     }
   ],
   "permissions": [
