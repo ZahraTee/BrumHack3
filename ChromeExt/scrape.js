@@ -90,7 +90,7 @@ function removeTags(docid, tag)
 		url: 'https://api.clarifai.com/v1/feedback/',
 		type: 'POST',
 		beforeSend: function (xhr) {
-		    xhr.setRequestHeader('Authorization', 'bearer ' + "kEIZsCcn6Uh1ouFACPka8HPXbKRIqY");
+		    xhr.setRequestHeader('Authorization', 'bearer ' + "JZ5hbKIpkw3HmxVii3A7kqnZIaTwHZ");
 		},
 		data: {docids: docid, remove_tags: tag},
 		success: function (object) {
