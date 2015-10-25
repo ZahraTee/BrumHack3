@@ -1,5 +1,8 @@
 var i, imgs, token;
-getToken();
+
+//if (clarifeyes_enabled) {
+	getToken();
+//}
 
 function getToken()
 {
