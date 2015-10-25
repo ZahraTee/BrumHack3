@@ -48,7 +48,7 @@ function getImageTagsFromURL(image_element,image_url)
 		url: 'https://api.clarifai.com/v1/tag/',
 		type: 'POST',
 		beforeSend: function (xhr) {
-		    xhr.setRequestHeader('Authorization', 'bearer ' + "kEIZsCcn6Uh1ouFACPka8HPXbKRIqY");
+		    xhr.setRequestHeader('Authorization', 'bearer ' + "vxXgH9La23PpwxThJIep63eyeAijrL");
 		},
 		data: {url: image_url},
 		success: function (object) {
